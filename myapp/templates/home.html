@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'includes/slider.html' %}
+
+<div class="container mt-5">
+    <div class="row g-4">
+
+        {% for post in posts %}
+        <div class="col-md-3 col-sm-6">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <!-- Image -->
+                <div class="position-relative">
+                    {% if post.images.first %}
+                    <img src="{{ post.images.first.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                    {% else %}
+                    <img src="https://via.placeholder.com/300" class="card-img-top">
+                    {% endif %}
+
+                    <span class="badge bg-success position-absolute top-0 start-0 m-2">
+                        New
+                    </span>
+                </div>
+
+                <div class="card-body">
+
+                    <h6 class="fw-bold">
+                        {{ post.title|truncatechars:40 }}
+                    </h6>
+
+                    <p class="text-muted small">
+                        {{ post.content|truncatewords:10 }}
+                    </p>
+
+                    <a href="{% url 'post_detail' post.slug %}" class="btn btn-sm btn-outline-primary w-100">
+                        Read More
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% include 'includes/footer.html' %}
+
+{% endblock %}

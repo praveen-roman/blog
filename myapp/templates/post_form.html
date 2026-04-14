@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h3>Add / Edit Post</h3>
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+            <div class="text-danger">{{ field.errors }}</div>
+        </div>
+        {% endfor %}
+
+        <div class="mb-3">
+            <label>Upload Images</label>
+            <input type="file" name="image" multiple class="form-control">
+            <img id="preview" style="width:100px; margin-top:10px; display:none;">
+        </div>
+
+        <button class="btn btn-success w-100">Save Post</button>
+    </form>
+</div>
+
+<script>
+document.querySelector('input[name="image"]').addEventListener('change', function(e){
+    let file = e.target.files[0];
+    if(file){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            let img = document.getElementById('preview');
+            img.src = e.target.result;
+            img.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+{% endblock %}
+{% include 'includes/footer.html' %}
