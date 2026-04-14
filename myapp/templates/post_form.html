@@ -13,14 +13,27 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {% for field in form %}
+        <!-- Title -->
         <div class="mb-3">
-            <label class="form-label">{{ field.label }}</label>
-            {{ field }}
-            <div class="text-danger">{{ field.errors }}</div>
+            <label class="form-label">Title</label>
+            {{ form.title }}
+            <div class="text-danger">{{ form.title.errors }}</div>
         </div>
-        {% endfor %}
 
+        <!-- Content -->
+        <div class="mb-3">
+            <label class="form-label">Content</label>
+            {{ form.content }}
+            <div class="text-danger">{{ form.content.errors }}</div>
+        </div>
+
+        <!-- ✅ Category Input (NEW) -->
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <input type="text" name="category_name" class="form-control" placeholder="Enter category">
+        </div>
+
+        <!-- Image Upload -->
         <div class="mb-3">
             <label>Upload Images</label>
             <input type="file" name="image" multiple class="form-control">
@@ -47,4 +60,5 @@ document.querySelector('input[name="image"]').addEventListener('change', functio
 </script>
 
 {% endblock %}
+
 {% include 'includes/footer.html' %}
