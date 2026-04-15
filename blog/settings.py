@@ -15,7 +15,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://blog-1-v3vh.onrender.com",
+    "https://blog-2-srh0.onrender.com",
 ]
 
 # -------------------------
@@ -75,9 +75,16 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # -------------------------
 # DATABASE (RENDER POSTGRES)
 # -------------------------
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get("postgresql://blogdb_8739_user:PizrKiyLqmJ9QEyLB8oPSzJJTo6zAt9Z@dpg-d7fevonlk1mc73dcrof0-a.oregon-postgres.render.com/blogdb_8739"),
+#         conn_max_age=600
+#     )
+# }
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("postgresql://blogdb_8739_user:PizrKiyLqmJ9QEyLB8oPSzJJTo6zAt9Z@dpg-d7fevonlk1mc73dcrof0-a.oregon-postgres.render.com/blogdb_8739"),
+        default=os.environ.get("DATABASE_URL"),
         conn_max_age=600
     )
 }
@@ -85,10 +92,16 @@ DATABASES = {
 # -------------------------
 # CLOUDINARY (MEDIA)
 # -------------------------
+# cloudinary.config(
+#     cloud_name=os.environ.get("dyk3iaaes"),   # your cloud name
+#     api_key=os.environ.get("769376771259596"),         # your API key
+#     api_secret=os.environ.get("8t6Vay0IuETyoidpx-v_iDjcVSM"),   # your API secret
+# )
+
 cloudinary.config(
-    cloud_name=os.environ.get("dyk3iaaes"),   # your cloud name
-    api_key=os.environ.get("769376771259596"),         # your API key
-    api_secret=os.environ.get("8t6Vay0IuETyoidpx-v_iDjcVSM"),   # your API secret
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
 )
 
 # -------------------------
