@@ -13,9 +13,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://blog-1-v3vh.onrender.com",
 ]
+
 # -------------------------
 # APPS
 # -------------------------
@@ -71,25 +73,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'blog.wsgi.application'
 
 # -------------------------
-# DATABASE (POSTGRESQL - RENDER)
+# DATABASE (RENDER POSTGRES)
 # -------------------------
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://blogdb_8739_user:PizrKiyLqmJ9QEyLB8oPSzJJTo6zAt9Z@dpg-d7fevonlk1mc73dcrof0-a.oregon-postgres.render.com/blogdb_8739",
+        default=os.environ.get("postgresql://blogdb_8739_user:PizrKiyLqmJ9QEyLB8oPSzJJTo6zAt9Z@dpg-d7fevonlk1mc73dcrof0-a.oregon-postgres.render.com/blogdb_8739"),
         conn_max_age=600
     )
 }
 
 # -------------------------
-# CLOUDINARY (MEDIA FILES)
+# CLOUDINARY (MEDIA)
 # -------------------------
 cloudinary.config(
-    cloud_name=os.environ.get("dyk3iaaes"),
-    api_key=os.environ.get("769376771259596"),
-    api_secret=os.environ.get("8t6Vay0IuETyoidpx-v_iDjcVSM"),
+    cloud_name=os.environ.get("dyk3iaaes"),   # your cloud name
+    api_key=os.environ.get("769376771259596"),         # your API key
+    api_secret=os.environ.get("8t6Vay0IuETyoidpx-v_iDjcVSM"),   # your API secret
 )
+
 # -------------------------
-# STORAGE (STATIC + MEDIA)
+# STORAGE
 # -------------------------
 STORAGES = {
     "default": {
@@ -116,5 +119,3 @@ LOGIN_URL = 'login'
 # DEFAULT AUTO FIELD
 # -------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
