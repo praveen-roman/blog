@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -------------------------
 # SECURITY
 # -------------------------
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
@@ -73,15 +73,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'blog.wsgi.application'
 
 # -------------------------
-# DATABASE (RENDER POSTGRES)
+# DATABASE (RENDER)
 # -------------------------
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.environ.get("postgresql://blogdb_8739_user:PizrKiyLqmJ9QEyLB8oPSzJJTo6zAt9Z@dpg-d7fevonlk1mc73dcrof0-a.oregon-postgres.render.com/blogdb_8739"),
-#         conn_max_age=600
-#     )
-# }
-
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get("DATABASE_URL"),
@@ -92,12 +85,6 @@ DATABASES = {
 # -------------------------
 # CLOUDINARY (MEDIA)
 # -------------------------
-# cloudinary.config(
-#     cloud_name=os.environ.get("dyk3iaaes"),   # your cloud name
-#     api_key=os.environ.get("769376771259596"),         # your API key
-#     api_secret=os.environ.get("8t6Vay0IuETyoidpx-v_iDjcVSM"),   # your API secret
-# )
-
 cloudinary.config(
     cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
     api_key=os.environ.get("CLOUDINARY_API_KEY"),
@@ -120,7 +107,6 @@ STORAGES = {
 # STATIC FILES
 # -------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # -------------------------
