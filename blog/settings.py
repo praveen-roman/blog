@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "blog-m7g3.onrender.com",
+   "blog-1.onrender.com",
     "localhost",
     "127.0.0.1",
 ]
@@ -118,3 +118,5 @@ LOGIN_URL = 'login'
 # DEFAULT AUTO FIELD
 # -------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
