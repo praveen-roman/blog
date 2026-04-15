@@ -1,14 +1,26 @@
 from pathlib import Path
-import cloudinary
 import os
+import dj_database_url
+import cloudinary
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
+# -------------------------
+# SECURITY
+# -------------------------
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+
 DEBUG = False
-ALLOWED_HOSTS = ['*']
 
+ALLOWED_HOSTS = [
+    "blog-m7g3.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
+# -------------------------
+# APPS
+# -------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,10 +35,13 @@ INSTALLED_APPS = [
     'cloudinary_storage',
 ]
 
-
+# -------------------------
+# MIDDLEWARE
+# -------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -35,10 +50,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'blog.urls'
 
-
+# -------------------------
+# TEMPLATES
+# -------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -54,45 +70,51 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-
+# -------------------------
+# DATABASE (POSTGRESQL - RENDER)
+# -------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default="postgresql://blogdb_8739_user:PizrKiyLqmJ9QEyLB8oPSzJJTo6zAt9Z@dpg-d7fevonlk1mc73dcrof0-a.oregon-postgres.render.com/blogdb_8739",
+        conn_max_age=600
+    )
 }
 
-
-# ✅ CLOUDINARY CONFIG
+# -------------------------
+# CLOUDINARY (MEDIA FILES)
+# -------------------------
 cloudinary.config(
-    cloud_name='dyk3iaaes',
-    api_key='769376771259596',
-    api_secret='8t6Vay0IuETyoidpx-v_iDjcVSM'
+    cloud_name=os.environ.get("dyk3iaaes"),
+    api_key=os.environ.get("769376771259596"),
+    api_secret=os.environ.get("8t6Vay0IuETyoidpx-v_iDjcVSM"),
 )
-
-# ✅ Django 5+ correct way
+# -------------------------
+# STORAGE (STATIC + MEDIA)
+# -------------------------
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
-
+# -------------------------
 # STATIC FILES
+# -------------------------
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
+# -------------------------
+# LOGIN
+# -------------------------
 LOGIN_URL = 'login'
 
-
+# -------------------------
+# DEFAULT AUTO FIELD
+# -------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
