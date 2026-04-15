@@ -14,9 +14,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://blog-2-srh0.onrender.com",
-]
+# CSRF_TRUSTED_ORIGINS = [
+    # "https://blog-1-srh0.onrender.com",
+# ]
 
 # -------------------------
 # APPS
